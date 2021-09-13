@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "972411077063",
+    "project_id": "city-bank-170fc",
+    "storage_bucket": "city-bank-170fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972411077063:android:cb7765048e7c66ccaad9e2",
+        "android_client_info": {
+          "package_name": "com.edmond.city_bank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972411077063-3a3fn7ffq8pcv698i5nct12p6841saj7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx9_480jSbYJ1YTfOC116EfJqVSVy7_Bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972411077063-3a3fn7ffq8pcv698i5nct12p6841saj7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
