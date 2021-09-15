@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class EventList extends StatefulWidget {
   final SuperUser? user;
   final listEvent;
-  int total = 0;
+  int? total;
   EventList({Key? key, required this.user, required this.listEvent})
       : super(key: key);
 
@@ -16,16 +16,20 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
+  List<Widget> built = [];
+
   List<Widget> getEvent() {
     if (widget.listEvent != null) {
+      int total = 0;
       List<Widget> event = [];
       widget.listEvent.forEach((key, value) {
-        widget.total += eventFromMap(value).price;
+        total += eventFromMap(value).price;
         event.add(EventTile(
           event: eventFromMap(value),
           user: widget.user,
         ));
       });
+      widget.total = total;
       return event;
     } else {
       return [
@@ -51,13 +55,15 @@ class _EventListState extends State<EventList> {
   @override
   void initState() {
     super.initState();
+    built = getEvent();
+    print('total ${widget.total}');
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: getEvent(),
+      children: built,
     );
   }
 }

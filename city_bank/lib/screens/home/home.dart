@@ -1,3 +1,4 @@
+import 'package:city_bank/model/event.dart';
 import 'package:city_bank/model/superUser.dart';
 import 'package:city_bank/screens/home/eventList.dart';
 import 'package:city_bank/screens/home/setting.dart';
@@ -41,6 +42,14 @@ class _HomeState extends State<Home> {
     setState(() {
       showLoading = false;
     });
+  }
+
+  Event eventFromMap(Map data) {
+    return Event(
+        category: data['category'],
+        time: data['time'],
+        details: data['details'],
+        price: data['price']);
   }
 
   void getInfo() async {
@@ -252,6 +261,14 @@ class _HomeState extends State<Home> {
         });
   }
 
+  int countTotal() {
+    int count = 0;
+    data!.forEach((key, value) {
+      count += eventFromMap(value).price;
+    });
+    return count;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -260,6 +277,13 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var totalText = data == null
+        ? Text('')
+        : Text(
+            '${text['total']![widget.user!.setting.language]} : ${countTotal()}',
+            style: timeStyle,
+          );
+
     return showLoading
         ? Loading()
         : Scaffold(
@@ -309,16 +333,20 @@ class _HomeState extends State<Home> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    SizedBox(
+                      height: 20.0,
+                    ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           time,
                           style: timeStyle,
                         ),
-                        Text('total : ${EventList(
-                          user: widget.user,
-                          listEvent: data,
-                        ).total}')
+                        SizedBox(
+                          width: 80.0,
+                        ),
+                        totalText
                       ],
                     ),
                     SizedBox(

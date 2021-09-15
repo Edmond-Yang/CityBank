@@ -26,7 +26,8 @@ var text = {
   'noYear': {'English': 'Please Choose a Year', '中文': '請選擇年份'},
   'noMonth': {'English': 'Please Choose a Month', '中文': '請選擇月份'},
   'noDay': {'English': 'Please Choose a Day', '中文': '請選擇日子'},
-  'ok': {'English': 'OK', '中文': '好了'}
+  'ok': {'English': 'OK', '中文': '好了'},
+  'total': {'English': 'Total', '中文': '總計'},
 };
 
 var appBarButtonStyle = TextButton.styleFrom(primary: Colors.white);
