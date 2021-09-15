@@ -16,23 +16,37 @@ class EventTile extends StatelessWidget {
           context: context,
           builder: (context) {
             return Container(
-                color: Colors.brown[50],
-                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+                padding: EdgeInsets.only(top: 10.0, left: 25.0, right: 25.0),
                 child: Column(
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            iconSize: 20.0,
+                            padding: EdgeInsets.all(1.0),
+                            splashRadius: 20.0,
+                            icon: Icon(
+                              Icons.close,
+                            ))
+                      ],
+                    ),
                     Text(
                       text['info']![user!.setting.language]!,
                       style: timeStyle,
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: 20.0,
                     ),
                     Image.asset(
                       'images/${event.category.toLowerCase()}.png',
-                      width: 80.0,
+                      width: 70.0,
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: 10.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -51,7 +65,7 @@ class EventTile extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: 10.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -70,7 +84,7 @@ class EventTile extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: 10.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -89,7 +103,7 @@ class EventTile extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: 10.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

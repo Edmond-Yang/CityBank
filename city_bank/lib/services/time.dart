@@ -32,7 +32,9 @@ class ETimer {
       Map data = jsonDecode(_receiver.body);
       DateTime now = DateTime.parse(data['utc_datetime']);
 
-      return DateFormat('HH:mm:ss').format(now);
+      return DateFormat('HH:mm:ss')
+          .format(now)
+          .replaceRange(0, 2, '${now.hour + 8}');
     } catch (e) {
       print(e);
       return error;

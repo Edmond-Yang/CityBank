@@ -12,7 +12,7 @@ var text = {
   'category': {'English': 'Category', '中文': '類別'},
   'detail': {'English': 'Detail', '中文': '明細'},
   'price': {'English': 'Price', '中文': '價格'},
-  'finish': {'English': 'Finish', '中文': '完成'},
+  'upload': {'English': 'Upload', '中文': '上傳'},
   'info': {'English': 'Information', '中文': '資訊'},
   'time': {'English': 'Time', '中文': '時間'},
   'noData': {'English': 'No Data', '中文': '無資料'},

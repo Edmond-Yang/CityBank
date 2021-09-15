@@ -33,19 +33,6 @@ class _UpdateModalState extends State<UpdateModal> {
     'Other'
   ];
 
-  final List<String> categoryListTaiwan = [
-    '食物',
-    '飲料',
-    '交通',
-    '購物',
-    '娛樂',
-    '家庭用品',
-    '電子產品',
-    '醫療',
-    '帳單',
-    '其他'
-  ];
-
   String? category;
 
   String? details;
@@ -154,7 +141,7 @@ class _UpdateModalState extends State<UpdateModal> {
             decoration: inputDecoration.copyWith(
                 hintText: text['price']![widget.user!.setting.language]!),
             onChanged: (value) {
-              price = int.parse(value);
+              if (int.tryParse(value) != null) price = int.parse(value);
             },
           ),
           SizedBox(
@@ -189,9 +176,9 @@ class _UpdateModalState extends State<UpdateModal> {
                 Navigator.pop(context);
               }
             },
-            icon: Icon(Icons.upgrade),
+            icon: Icon(Icons.upload),
             label: Text(
-              text['finish']![widget.user!.setting.language]!,
+              text['upload']![widget.user!.setting.language]!,
               style: appBarTextStyle,
             ),
             style: elevatedButtonStyle,
