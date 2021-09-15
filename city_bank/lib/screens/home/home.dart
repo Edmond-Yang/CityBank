@@ -310,22 +310,15 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
                           time,
                           style: timeStyle,
                         ),
-                        SizedBox(
-                          width: 80.0,
-                        ),
-                        ElevatedButton.icon(
-                          onPressed: showUpdate,
-                          icon: Icon(Icons.update),
-                          label: Text(
-                              text['update']![widget.user!.setting.language]!),
-                          style: elevatedButtonStyle,
-                        ),
+                        Text('total : ${EventList(
+                          user: widget.user,
+                          listEvent: data,
+                        ).total}')
                       ],
                     ),
                     SizedBox(
@@ -338,6 +331,12 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               )),
-            ));
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: showUpdate,
+              child: Icon(Icons.add),
+              backgroundColor: Colors.brown[400],
+            ),
+          );
   }
 }

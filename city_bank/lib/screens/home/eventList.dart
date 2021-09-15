@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class EventList extends StatefulWidget {
   final SuperUser? user;
   final listEvent;
+  int total = 0;
   EventList({Key? key, required this.user, required this.listEvent})
       : super(key: key);
 
@@ -15,12 +16,11 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
-  List<Widget> listEvent = [];
-
   List<Widget> getEvent() {
     if (widget.listEvent != null) {
       List<Widget> event = [];
       widget.listEvent.forEach((key, value) {
+        widget.total += eventFromMap(value).price;
         event.add(EventTile(
           event: eventFromMap(value),
           user: widget.user,
