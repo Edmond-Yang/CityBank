@@ -48,143 +48,180 @@ class _UpdateModalState extends State<UpdateModal> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(text['update']![widget.user!.setting.language]!,
-              style: timeStyle),
-          SizedBox(
-            height: 20.0,
-          ),
-          Text(
-            text['category']![widget.user!.setting.language]!,
-            style: timeStyle.copyWith(fontSize: 20.0, color: Colors.brown),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          DropdownButtonFormField(
-              validator: (value) {
-                return value == null
-                    ? text['noCategory']![widget.user!.setting.language]!
-                    : null;
-              },
-              onChanged: (value) {
-                setState(() {
-                  category = value!.toString();
-                });
-              },
-              decoration: inputDecoration.copyWith(
-                hintText: text['category']![widget.user!.setting.language]!,
-              ),
-              elevation: 0,
-              items: categoryList.map((name) {
-                return DropdownMenuItem(
-                    value: name,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset(
-                          'images/${name.toLowerCase()}.png',
-                          width: 50,
+        key: _formKey,
+        child: DraggableScrollableSheet(
+            initialChildSize: 0.85,
+            maxChildSize: 0.85,
+            minChildSize: 0.85,
+            builder: (context, scroller) {
+              return Container(
+                color: Colors.brown[50],
+                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
+                child: SingleChildScrollView(
+                  controller: scroller,
+                  scrollDirection: Axis.vertical,
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.close),
+                            splashRadius: 5.0,
+                          )
+                        ],
+                      ),
+                      Text(text['update']![widget.user!.setting.language]!,
+                          style: timeStyle),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Text(
+                        text['category']![widget.user!.setting.language]!,
+                        style: timeStyle.copyWith(
+                            fontSize: 20.0, color: Colors.brown),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      DropdownButtonFormField(
+                          validator: (value) {
+                            return value == null
+                                ? text['noCategory']![
+                                    widget.user!.setting.language]!
+                                : null;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              category = value!.toString();
+                            });
+                          },
+                          decoration: inputDecoration.copyWith(
+                            hintText: text['category']![
+                                widget.user!.setting.language]!,
+                          ),
+                          elevation: 0,
+                          items: categoryList.map((name) {
+                            return DropdownMenuItem(
+                                value: name,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Image.asset(
+                                      'images/${name.toLowerCase()}.png',
+                                      width: 50,
+                                    ),
+                                    SizedBox(
+                                      width: 20.0,
+                                    ),
+                                    Text(name,
+                                        style: appBarTextStyle.copyWith(
+                                            color: Colors.black))
+                                  ],
+                                ));
+                          }).toList()),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Text(
+                        text['detail']![widget.user!.setting.language]!,
+                        style: timeStyle.copyWith(
+                            fontSize: 20.0, color: Colors.brown),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          return value!.isEmpty
+                              ? text['noDetails']![
+                                  widget.user!.setting.language]!
+                              : null;
+                        },
+                        decoration: inputDecoration.copyWith(
+                            hintText: text['detail']![
+                                widget.user!.setting.language]!),
+                        onChanged: (value) {
+                          details = value;
+                        },
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Text(
+                        text['price']![widget.user!.setting.language]!,
+                        style: timeStyle.copyWith(
+                            fontSize: 20.0, color: Colors.brown),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          return value!.isEmpty
+                              ? text['noPrice']![widget.user!.setting.language]!
+                              : int.tryParse(value) != null
+                                  ? null
+                                  : text['notInt']![
+                                      widget.user!.setting.language]!;
+                        },
+                        decoration: inputDecoration.copyWith(
+                            hintText:
+                                text['price']![widget.user!.setting.language]!),
+                        onChanged: (value) {
+                          if (int.tryParse(value) != null)
+                            price = int.parse(value);
+                        },
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            DataBaseServices services =
+                                DataBaseServices(uid: widget.user!.uid);
+                            time = await ETimer().getTime(widget.user);
+                            Map<String, dynamic>? oldData =
+                                await services.getData(widget.date);
+                            if (oldData == null) {
+                              oldData = {};
+                              oldData['0'] = Event(
+                                      category: category!,
+                                      details: details!,
+                                      time: time!,
+                                      price: price!)
+                                  .getMap();
+                            } else {
+                              oldData['${oldData.length}'] = Event(
+                                      category: category!,
+                                      details: details!,
+                                      time: time!,
+                                      price: price!)
+                                  .getMap();
+                            }
+                            await services.updateData(widget.date, oldData);
+                            await widget.func();
+                            Navigator.pop(context);
+                          }
+                        },
+                        icon: Icon(Icons.upload),
+                        label: Text(
+                          text['upload']![widget.user!.setting.language]!,
+                          style: appBarTextStyle,
                         ),
-                        SizedBox(
-                          width: 20.0,
-                        ),
-                        Text(name,
-                            style:
-                                appBarTextStyle.copyWith(color: Colors.black))
-                      ],
-                    ));
-              }).toList()),
-          SizedBox(
-            height: 30.0,
-          ),
-          Text(
-            text['detail']![widget.user!.setting.language]!,
-            style: timeStyle.copyWith(fontSize: 20.0, color: Colors.brown),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          TextFormField(
-            validator: (value) {
-              return value!.isEmpty
-                  ? text['noDetails']![widget.user!.setting.language]!
-                  : null;
-            },
-            decoration: inputDecoration.copyWith(
-                hintText: text['detail']![widget.user!.setting.language]!),
-            onChanged: (value) {
-              details = value;
-            },
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          Text(
-            text['price']![widget.user!.setting.language]!,
-            style: timeStyle.copyWith(fontSize: 20.0, color: Colors.brown),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          TextFormField(
-            validator: (value) {
-              return value!.isEmpty
-                  ? text['noPrice']![widget.user!.setting.language]!
-                  : int.tryParse(value) != null
-                      ? null
-                      : text['notInt']![widget.user!.setting.language]!;
-            },
-            decoration: inputDecoration.copyWith(
-                hintText: text['price']![widget.user!.setting.language]!),
-            onChanged: (value) {
-              if (int.tryParse(value) != null) price = int.parse(value);
-            },
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          ElevatedButton.icon(
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                DataBaseServices services =
-                    DataBaseServices(uid: widget.user!.uid);
-                time = await ETimer().getTime(widget.user);
-                Map<String, dynamic>? oldData =
-                    await services.getData(widget.date);
-                if (oldData == null) {
-                  oldData = {};
-                  oldData['0'] = Event(
-                          category: category!,
-                          details: details!,
-                          time: time!,
-                          price: price!)
-                      .getMap();
-                } else {
-                  oldData['${oldData.length}'] = Event(
-                          category: category!,
-                          details: details!,
-                          time: time!,
-                          price: price!)
-                      .getMap();
-                }
-                await services.updateData(widget.date, oldData);
-                await widget.func();
-                Navigator.pop(context);
-              }
-            },
-            icon: Icon(Icons.upload),
-            label: Text(
-              text['upload']![widget.user!.setting.language]!,
-              style: appBarTextStyle,
-            ),
-            style: elevatedButtonStyle,
-          )
-        ],
-      ),
-    );
+                        style: elevatedButtonStyle,
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }));
   }
 }

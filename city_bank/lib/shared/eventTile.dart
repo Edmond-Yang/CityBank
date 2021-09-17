@@ -13,116 +13,129 @@ class EventTile extends StatelessWidget {
   Widget build(BuildContext context) {
     void showModal() {
       showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
           context: context,
           builder: (context) {
-            return Container(
-                padding: EdgeInsets.only(top: 10.0, left: 25.0, right: 25.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            iconSize: 20.0,
-                            padding: EdgeInsets.all(1.0),
-                            splashRadius: 20.0,
-                            icon: Icon(
-                              Icons.close,
-                            ))
-                      ],
-                    ),
-                    Text(
-                      text['info']![user!.setting.language]!,
-                      style: timeStyle,
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Image.asset(
-                      'images/${event.category.toLowerCase()}.png',
-                      width: 70.0,
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(text['category']![user!.setting.language]!,
-                            style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontSize: 20.0,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400)),
-                        Text(
-                          event.category,
-                          style:
-                              TextStyle(fontFamily: 'Nunito', fontSize: 25.0),
+            return DraggableScrollableSheet(
+                initialChildSize: 0.65,
+                maxChildSize: 0.65,
+                minChildSize: 0.65,
+                builder: (context, scroller) {
+                  return Container(
+                      color: Colors.white,
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                      child: SingleChildScrollView(
+                        controller: scroller,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    iconSize: 20.0,
+                                    padding: EdgeInsets.all(1.0),
+                                    splashRadius: 20.0,
+                                    icon: Icon(
+                                      Icons.close,
+                                    ))
+                              ],
+                            ),
+                            Text(
+                              text['info']![user!.setting.language]!,
+                              style: timeStyle,
+                            ),
+                            SizedBox(
+                              height: 30.0,
+                            ),
+                            Image.asset(
+                              'images/${event.category.toLowerCase()}.png',
+                              height: 80.0,
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(text['category']![user!.setting.language]!,
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 20.0,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w400)),
+                                Text(
+                                  event.category,
+                                  style: TextStyle(
+                                      fontFamily: 'Nunito', fontSize: 25.0),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(text['detail']![user!.setting.language]!,
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 20.0,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w400)),
+                                Text(
+                                  event.details,
+                                  style: TextStyle(
+                                      fontFamily: 'Nunito', fontSize: 25.0),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(text['time']![user!.setting.language]!,
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 20.0,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w400)),
+                                Text(
+                                  event.time,
+                                  style: TextStyle(
+                                      fontFamily: 'Nunito', fontSize: 25.0),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(text['price']![user!.setting.language]!,
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 20.0,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w400)),
+                                Text(
+                                  '${event.price}',
+                                  style: TextStyle(
+                                      fontFamily: 'Nunito', fontSize: 25.0),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(text['detail']![user!.setting.language]!,
-                            style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontSize: 20.0,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400)),
-                        Text(
-                          event.details,
-                          style:
-                              TextStyle(fontFamily: 'Nunito', fontSize: 25.0),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(text['time']![user!.setting.language]!,
-                            style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontSize: 20.0,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400)),
-                        Text(
-                          event.time,
-                          style:
-                              TextStyle(fontFamily: 'Nunito', fontSize: 25.0),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(text['price']![user!.setting.language]!,
-                            style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontSize: 20.0,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400)),
-                        Text(
-                          '\$ ${event.price}',
-                          style:
-                              TextStyle(fontFamily: 'Nunito', fontSize: 25.0),
-                        ),
-                      ],
-                    ),
-                  ],
-                ));
+                      ));
+                });
           });
     }
 

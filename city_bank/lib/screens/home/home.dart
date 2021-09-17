@@ -1,5 +1,6 @@
 import 'package:city_bank/model/event.dart';
 import 'package:city_bank/model/superUser.dart';
+import 'package:city_bank/screens/home/calendar.dart';
 import 'package:city_bank/screens/home/eventList.dart';
 import 'package:city_bank/screens/home/setting.dart';
 import 'package:city_bank/screens/home/update.dart';
@@ -75,15 +76,14 @@ class _HomeState extends State<Home> {
 
   void showSetting() {
     showModalBottomSheet(
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return Container(
-              color: Colors.brown[50],
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              child: SettingModal(
-                changeLang: changeLang,
-                user: widget.user,
-              ));
+          return SettingModal(
+            changeLang: changeLang,
+            user: widget.user,
+          );
         });
   }
 
@@ -92,171 +92,41 @@ class _HomeState extends State<Home> {
     String? month;
     String? day;
 
+    void change(String currentTime) async {
+      time = currentTime;
+      data = await DataBaseServices(uid: widget.user!.uid).getData(time);
+
+      setState(() {
+        print(time);
+        Navigator.pop(context);
+      });
+    }
+
     showModalBottomSheet(
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return Container(
-            color: Colors.brown[50],
-            child: Scrollbar(
-                child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              physics: BouncingScrollPhysics(),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Text(
-                        text['calendar']![widget.user!.setting.language]!,
-                        style: timeStyle,
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Text(
-                        text['year']![widget.user!.setting.language]!,
-                        style: timeStyle.copyWith(
-                            fontSize: 20.0, color: Colors.brown),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      DropdownButtonFormField(
-                          validator: (value) {
-                            return value == null
-                                ? text['noYear']![
-                                    widget.user!.setting.language]!
-                                : null;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              year = value!.toString();
-                            });
-                          },
-                          decoration: inputDecoration.copyWith(
-                            hintText:
-                                text['year']![widget.user!.setting.language]!,
-                          ),
-                          elevation: 0,
-                          items: _listYear.map((name) {
-                            return DropdownMenuItem(
-                                value: name, child: Text(name));
-                          }).toList()),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Text(
-                        text['month']![widget.user!.setting.language]!,
-                        style: timeStyle.copyWith(
-                            fontSize: 20.0, color: Colors.brown),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      DropdownButtonFormField(
-                          validator: (value) {
-                            return value == null
-                                ? text['noMonth']![
-                                    widget.user!.setting.language]!
-                                : null;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              month = value!.toString().length < 2
-                                  ? '0' + value.toString()
-                                  : value.toString();
-                            });
-                          },
-                          decoration: inputDecoration.copyWith(
-                            hintText:
-                                text['month']![widget.user!.setting.language]!,
-                          ),
-                          elevation: 0,
-                          items: _listMonth.map((name) {
-                            return DropdownMenuItem(
-                                value: name, child: Text(name));
-                          }).toList()),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Text(
-                        text['day']![widget.user!.setting.language]!,
-                        style: timeStyle.copyWith(
-                            fontSize: 20.0, color: Colors.brown),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      DropdownButtonFormField(
-                          validator: (value) {
-                            return value == null
-                                ? text['noDay']![widget.user!.setting.language]!
-                                : null;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              day = value!.toString().length < 2
-                                  ? '0' + value.toString()
-                                  : value.toString();
-                            });
-                          },
-                          decoration: inputDecoration.copyWith(
-                            hintText:
-                                text['day']![widget.user!.setting.language]!,
-                          ),
-                          elevation: 0,
-                          items: _listDay.map((name) {
-                            return DropdownMenuItem(
-                                value: name, child: Text(name));
-                          }).toList()),
-                      SizedBox(height: 30.0),
-                      ElevatedButton.icon(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              time = '$month.$day.$year';
-                              data =
-                                  await DataBaseServices(uid: widget.user!.uid)
-                                      .getData(time);
-
-                              setState(() {
-                                print(time);
-                                Navigator.pop(context);
-                              });
-                            }
-                          },
-                          icon: Icon(Icons.login),
-                          label: Text(
-                              text['ok']![widget.user!.setting.language]!,
-                              style: appBarTextStyle),
-                          style: elevatedButtonStyle),
-                    ],
-                  ),
-                ),
-              ),
-            )),
+          return Calendar(
+            user: widget.user,
+            listYear: _listYear,
+            listMonth: _listMonth,
+            listDay: _listDay,
+            changeTime: change,
           );
         });
   }
 
   void showUpdate() {
     showModalBottomSheet(
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return Container(
-            color: Colors.brown[50],
-            child: Scrollbar(
-                child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              physics: BouncingScrollPhysics(),
-              child: UpdateModal(
-                user: widget.user,
-                date: time,
-                func: runTile,
-              ),
-            )),
+          return UpdateModal(
+            user: widget.user,
+            date: time,
+            func: runTile,
           );
         });
   }
@@ -278,7 +148,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var totalText = data == null
-        ? Text('')
+        ? Text(
+            '${text['total']![widget.user!.setting.language]} : 0',
+            style: timeStyle,
+          )
         : Text(
             '${text['total']![widget.user!.setting.language]} : ${countTotal()}',
             style: timeStyle,
@@ -328,7 +201,7 @@ class _HomeState extends State<Home> {
               child: Scrollbar(
                   child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
                 physics: BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -344,7 +217,7 @@ class _HomeState extends State<Home> {
                           style: timeStyle,
                         ),
                         SizedBox(
-                          width: 80.0,
+                          width: 40.0,
                         ),
                         totalText
                       ],

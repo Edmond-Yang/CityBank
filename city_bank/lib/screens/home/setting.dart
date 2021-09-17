@@ -22,63 +22,92 @@ class _SettingModalState extends State<SettingModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          Center(
-            child: Text(
-              text['setting']![widget.user.setting.language]!,
-              style: timeStyle.copyWith(
-                fontSize: 25.0,
+    return DraggableScrollableSheet(
+        initialChildSize: 0.65,
+        maxChildSize: 0.65,
+        minChildSize: 0.65,
+        builder: (context, scroller) {
+          return Container(
+            color: Colors.brown[50],
+            padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
+            child: SingleChildScrollView(
+              controller: scroller,
+              scrollDirection: Axis.vertical,
+              physics: BouncingScrollPhysics(),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(Icons.close),
+                          splashRadius: 5.0,
+                        )
+                      ],
+                    ),
+                    Center(
+                      child: Text(
+                        text['setting']![widget.user.setting.language]!,
+                        style: timeStyle.copyWith(
+                          fontSize: 25.0,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40.0,
+                    ),
+                    Center(
+                      child: Text(
+                        text['language']![widget.user.setting.language]!,
+                        style: timeStyle.copyWith(
+                          color: Colors.brown[600],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    DropdownButtonFormField(
+                        value: widget.user.setting.language,
+                        decoration:
+                            inputDecoration.copyWith(hintText: 'Language'),
+                        elevation: 0,
+                        onChanged: (value) {
+                          setState(() {
+                            widget.changeLang(value.toString());
+                            DataBaseServices(uid: widget.user.uid).updateData(
+                                'setting', widget.user.getSettingMap());
+                          });
+                        },
+                        items: languages.map((choices) {
+                          return DropdownMenuItem(
+                              value: choices,
+                              child: Text(
+                                choices,
+                              ));
+                        }).toList()),
+                    SizedBox(height: 100.0),
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        await _auth.logOut();
+                      },
+                      icon: Icon(Icons.logout),
+                      label: Text(
+                          text['logout']![widget.user.setting.language]!,
+                          style: appBarTextStyle),
+                      style: elevatedButtonStyle,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 40.0,
-          ),
-          Center(
-            child: Text(
-              text['language']![widget.user.setting.language]!,
-              style: timeStyle.copyWith(
-                color: Colors.brown[600],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          DropdownButtonFormField(
-              value: widget.user.setting.language,
-              decoration: inputDecoration.copyWith(hintText: 'Language'),
-              elevation: 0,
-              onChanged: (value) {
-                setState(() {
-                  widget.changeLang(value.toString());
-                  DataBaseServices(uid: widget.user.uid)
-                      .updateData('setting', widget.user.getSettingMap());
-                });
-              },
-              items: languages.map((choices) {
-                return DropdownMenuItem(
-                    value: choices,
-                    child: Text(
-                      choices,
-                    ));
-              }).toList()),
-          SizedBox(height: 100.0),
-          ElevatedButton.icon(
-            onPressed: () async {
-              Navigator.pop(context);
-              await _auth.logOut();
-            },
-            icon: Icon(Icons.logout),
-            label: Text(text['logout']![widget.user.setting.language]!,
-                style: appBarTextStyle),
-            style: elevatedButtonStyle,
-          )
-        ],
-      ),
-    );
+          );
+        });
   }
 }

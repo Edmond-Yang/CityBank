@@ -55,15 +55,16 @@ class _EventListState extends State<EventList> {
   @override
   void initState() {
     super.initState();
-    built = getEvent();
-    print('total ${widget.total}');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: built,
+    built = getEvent();
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: built,
+      ),
     );
   }
 }
