@@ -26,4 +26,15 @@ class DataBaseServices {
       return null;
     }
   }
+
+  Future deleteData(String key, String date) async {
+    try {
+      Map<String, dynamic>? data = await getData(date);
+      dynamic _deleteData = data!.remove(key);
+      await updateData(date, data);
+      return _deleteData;
+    } catch (e) {
+      return null;
+    }
+  }
 }

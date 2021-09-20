@@ -139,6 +139,13 @@ class _HomeState extends State<Home> {
     return count;
   }
 
+  void rebuilt() async {
+    data = await DataBaseServices(uid: widget.user!.uid).getData(time);
+    setState(() {
+      Navigator.pop(context);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -228,6 +235,8 @@ class _HomeState extends State<Home> {
                     EventList(
                       user: widget.user,
                       listEvent: data,
+                      date: time,
+                      rebuilt: rebuilt,
                     ),
                   ],
                 ),

@@ -19,7 +19,7 @@ class ETimer {
       return DateFormat('MM.dd.yyyy').format(now);
     } catch (e) {
       print(e);
-      return error;
+      return '00.00.0000';
     }
   }
 
@@ -37,7 +37,7 @@ class ETimer {
           .replaceRange(0, 2, '${now.hour + 8}');
     } catch (e) {
       print(e);
-      return error;
+      return '00:00:00';
     }
   }
 }

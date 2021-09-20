@@ -28,6 +28,7 @@ var text = {
   'noDay': {'English': 'Please Choose a Day', '中文': '請選擇日子'},
   'ok': {'English': 'OK', '中文': '好了'},
   'total': {'English': 'Total', '中文': '總計'},
+  'delete': {'English': 'Delete', '中文': '刪除'}
 };
 
 var appBarButtonStyle = TextButton.styleFrom(primary: Colors.white);
