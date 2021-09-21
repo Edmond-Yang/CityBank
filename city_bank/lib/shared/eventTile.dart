@@ -22,6 +22,7 @@ class EventTile extends StatelessWidget {
     Future deleteEvent() async {
       var receiver = await DataBaseServices(uid: user!.uid)
           .deleteData(event.enCode(), time);
+      print(receiver);
     }
 
     void showModal() {

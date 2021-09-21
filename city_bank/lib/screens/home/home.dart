@@ -19,8 +19,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _formKey = GlobalKey<FormState>();
-
   var time = '';
   Map<String, dynamic>? data;
   bool showLoading = true;
@@ -88,10 +86,6 @@ class _HomeState extends State<Home> {
   }
 
   void showCalendar() {
-    String? year;
-    String? month;
-    String? day;
-
     void change(String currentTime) async {
       time = currentTime;
       data = await DataBaseServices(uid: widget.user!.uid).getData(time);

@@ -1,6 +1,5 @@
 import 'package:city_bank/model/event.dart';
 import 'package:city_bank/model/superUser.dart';
-import 'package:city_bank/services/database.dart';
 import 'package:city_bank/shared/constants.dart';
 import 'package:city_bank/shared/eventTile.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ class _EventListState extends State<EventList> {
         event.add(eventFromMap(value));
       });
 
-      event = BubbleSort(event);
+      event = bubbleSort(event);
       event.forEach((element) {
         eventWidget.add(EventTile(
             event: element,
@@ -60,7 +59,7 @@ class _EventListState extends State<EventList> {
     }
   }
 
-  List<Event> BubbleSort(List<Event> event) {
+  List<Event> bubbleSort(List<Event> event) {
     bool isFinished = true;
     for (int i = 0; i < event.length; i++) {
       for (int j = event.length - 1; j > 0; j--) {
