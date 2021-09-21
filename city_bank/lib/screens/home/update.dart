@@ -50,9 +50,9 @@ class _UpdateModalState extends State<UpdateModal> {
     return Form(
         key: _formKey,
         child: DraggableScrollableSheet(
-            initialChildSize: 0.8,
-            maxChildSize: 0.8,
-            minChildSize: 0.8,
+            initialChildSize: 0.85,
+            maxChildSize: 0.85,
+            minChildSize: 0.85,
             builder: (context, scroller) {
               return ClipRRect(
                 borderRadius: BorderRadius.only(

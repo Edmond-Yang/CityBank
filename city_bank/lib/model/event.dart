@@ -15,6 +15,7 @@ class Event {
       required this.details,
       required this.time,
       required this.price}) {
+    print(time);
     hour = int.parse(this.time.substring(0, 2));
     minute = int.parse(this.time.substring(3, 5));
     second = int.parse(this.time.substring(6, 8));

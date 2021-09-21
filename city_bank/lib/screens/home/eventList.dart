@@ -27,7 +27,7 @@ class _EventListState extends State<EventList> {
   List<Widget> built = [];
 
   List<Widget> getEvent() {
-    if (widget.listEvent != null) {
+    if (widget.listEvent != null && widget.listEvent!.length != 0) {
       int total = 0;
       List<Event> event = [];
       List<Widget> eventWidget = [];
