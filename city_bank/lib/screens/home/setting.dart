@@ -23,9 +23,9 @@ class _SettingModalState extends State<SettingModal> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-        initialChildSize: 0.65,
-        maxChildSize: 0.65,
-        minChildSize: 0.65,
+        initialChildSize: 0.7,
+        maxChildSize: 0.7,
+        minChildSize: 0.7,
         builder: (context, scroller) {
           return ClipRRect(
             borderRadius: BorderRadius.only(
@@ -96,7 +96,13 @@ class _SettingModalState extends State<SettingModal> {
                                   choices,
                                 ));
                           }).toList()),
-                      SizedBox(height: 100.0),
+                      SizedBox(height: 70.0),
+                      Text(
+                          text['version']![widget.user.setting.language]! +
+                              ' : 3.1.0',
+                          style: timeStyle.copyWith(
+                              fontSize: 20.0, color: Colors.grey)),
+                      SizedBox(height: 20.0),
                       ElevatedButton.icon(
                         onPressed: () async {
                           Navigator.pop(context);

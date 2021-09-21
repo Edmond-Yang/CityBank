@@ -26,9 +26,9 @@ class Calendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-        initialChildSize: 0.8,
-        maxChildSize: 0.8,
-        minChildSize: 0.8,
+        initialChildSize: 0.83,
+        maxChildSize: 0.83,
+        minChildSize: 0.83,
         builder: (context, scroller) {
           return ClipRRect(
             borderRadius: BorderRadius.only(
