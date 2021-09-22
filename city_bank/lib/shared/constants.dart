@@ -43,6 +43,7 @@ var text = {
   'Other': {'English': 'Other', '中文': '其他'},
   'updating': {'English': 'Updating', '中文': '上傳中'},
   'loading': {'English': 'Loading', '中文': '載入中'},
+  'deleting': {'English': 'Deleting', '中文': '刪除中'},
 };
 
 var appBarButtonStyle = TextButton.styleFrom(primary: Colors.white);

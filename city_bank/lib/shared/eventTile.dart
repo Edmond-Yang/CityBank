@@ -119,7 +119,7 @@ class _EventModalState extends State<EventModal> {
                               height: 20.0,
                             ),
                             Text(
-                                text['updating']![
+                                text['deleting']![
                                     widget.user!.setting.language]!,
                                 style: timeStyle.copyWith(
                                     color: Colors.brown[400], fontSize: 40.0)),
