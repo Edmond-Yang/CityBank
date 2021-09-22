@@ -1,8 +1,8 @@
 import 'package:city_bank/model/event.dart';
 import 'package:city_bank/model/superUser.dart';
-import 'package:city_bank/screens/home/calendar.dart';
 import 'package:city_bank/screens/home/eventList.dart';
 import 'package:city_bank/screens/home/setting.dart';
+import 'package:city_bank/screens/home/tableCalendar.dart';
 import 'package:city_bank/screens/home/update.dart';
 import 'package:city_bank/screens/loading.dart';
 import 'package:city_bank/services/database.dart';
@@ -101,13 +101,8 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return Calendar(
-            user: widget.user,
-            listYear: _listYear,
-            listMonth: _listMonth,
-            listDay: _listDay,
-            changeTime: change,
-          );
+          return CalendarTable(
+              user: widget.user, changeTime: change, date: time);
         });
   }
 
@@ -170,8 +165,23 @@ class _HomeState extends State<Home> {
               ),
               actions: [
                 TextButton.icon(
+                  onPressed: runTile,
+                  icon: Icon(
+                    Icons.refresh,
+                    size: 22.0,
+                  ),
+                  label: Text(
+                    text['reload']![widget.user!.setting.language]!,
+                    style: appBarTextStyle,
+                  ),
+                  style: appBarButtonStyle,
+                ),
+                TextButton.icon(
                   onPressed: showCalendar,
-                  icon: Icon(Icons.calendar_today),
+                  icon: Icon(
+                    Icons.calendar_today,
+                    size: 22.0,
+                  ),
                   label: Text(
                     text['calendar']![widget.user!.setting.language]!,
                     style: appBarTextStyle,
@@ -180,15 +190,15 @@ class _HomeState extends State<Home> {
                 ),
                 TextButton.icon(
                   onPressed: showSetting,
-                  icon: Icon(Icons.settings),
+                  icon: Icon(
+                    Icons.settings,
+                    size: 22.0,
+                  ),
                   label: Text(
                     text['setting']![widget.user!.setting.language]!,
                     style: appBarTextStyle,
                   ),
                   style: appBarButtonStyle,
-                ),
-                SizedBox(
-                  width: 10.0,
                 ),
               ],
             ),
@@ -218,7 +228,7 @@ class _HomeState extends State<Home> {
                           style: timeStyle,
                         ),
                         SizedBox(
-                          width: 40.0,
+                          width: 60.0,
                         ),
                         totalText
                       ],

@@ -30,6 +30,18 @@ var text = {
   'total': {'English': 'Total', '中文': '總計'},
   'delete': {'English': 'Delete', '中文': '刪除'},
   'version': {'English': 'Version', '中文': '版本'},
+  'reload': {'English': 'Reload', '中文': '重載'},
+  'Food': {'English': 'Food', '中文': '食物'},
+  'Drink': {'English': 'Drink', '中文': '飲料'},
+  'Transportation': {'English': 'Transportation', '中文': '交通'},
+  'Shopping': {'English': 'Shopping', '中文': '購物'},
+  'Entertainment': {'English': 'Entertainment', '中文': '娛樂'},
+  'Housing': {'English': 'Housing', '中文': '家庭用品'},
+  'Electronic': {'English': 'Electronic', '中文': '電子產品'},
+  'Medical': {'English': 'Medical', '中文': '醫療'},
+  'Bill': {'English': 'Bill', '中文': '帳單'},
+  'Other': {'English': 'Other', '中文': '其他'},
+  'updating': {'English': 'Updating', '中文': '上傳中'},
 };
 
 var appBarButtonStyle = TextButton.styleFrom(primary: Colors.white);
