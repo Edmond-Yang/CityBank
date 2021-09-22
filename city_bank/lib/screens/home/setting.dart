@@ -99,7 +99,7 @@ class _SettingModalState extends State<SettingModal> {
                       SizedBox(height: 70.0),
                       Text(
                           text['version']![widget.user.setting.language]! +
-                              ' : 3.1.1',
+                              ' : 3.1.2',
                           style: timeStyle.copyWith(
                               fontSize: 20.0, color: Colors.grey)),
                       SizedBox(height: 20.0),
