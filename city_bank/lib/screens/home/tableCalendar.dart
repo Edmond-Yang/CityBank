@@ -68,7 +68,7 @@ class _CalendarTableState extends State<CalendarTable> {
                                   height: 20.0,
                                 ),
                                 Text(
-                                    text['updating']![
+                                    text['loading']![
                                         widget.user!.setting.language]!,
                                     style: timeStyle.copyWith(
                                         color: Colors.brown[400],

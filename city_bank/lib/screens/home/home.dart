@@ -23,10 +23,6 @@ class _HomeState extends State<Home> {
   Map<String, dynamic>? data;
   bool showLoading = true;
 
-  List<String> _listYear = [];
-  List<String> _listMonth = [];
-  List<String> _listDay = [];
-
   void changeLang(String lang) {
     setState(() {
       widget.user!.setSetting(data: lang);
@@ -58,15 +54,6 @@ class _HomeState extends State<Home> {
     time = await ETimer().getDate(widget.user);
     data = await DataBaseServices(uid: widget.user!.uid).getData(time);
 
-    for (int i = 2021; i <= int.parse(time.substring(6)); i++) {
-      _listYear.add('$i');
-    }
-    for (int i = 1; i <= 12; i++) {
-      _listMonth.add('$i');
-    }
-    for (int i = 1; i <= 31; i++) {
-      _listDay.add('$i');
-    }
     setState(() {
       showLoading = false;
     });
@@ -222,6 +209,7 @@ class _HomeState extends State<Home> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           time,
