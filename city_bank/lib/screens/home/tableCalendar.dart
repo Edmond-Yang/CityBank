@@ -51,7 +51,7 @@ class _CalendarTableState extends State<CalendarTable> {
                 topRight: Radius.elliptical(30, 20),
               ),
               child: Container(
-                  color: Colors.brown[50],
+                  color: Colors.white,
                   child: SingleChildScrollView(
                       controller: scroller,
                       scrollDirection: Axis.vertical,

@@ -1,3 +1,4 @@
+import 'package:city_bank/model/event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataBaseServices {
@@ -33,6 +34,21 @@ class DataBaseServices {
       dynamic _deleteData = data!.remove(key);
       await updateData(date, data);
       return _deleteData;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future fixData(String key, String date, Event event) async {
+    try {
+      Map<String, dynamic>? data = await getData(date);
+      if (data!.containsKey(key)) {
+        data[key] = event.getMap();
+        await updateData(date, data);
+        return event;
+      } else {
+        return null;
+      }
     } catch (e) {
       return null;
     }

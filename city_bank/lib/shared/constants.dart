@@ -44,6 +44,8 @@ var text = {
   'updating': {'English': 'Updating', '中文': '上傳中'},
   'loading': {'English': 'Loading', '中文': '載入中'},
   'deleting': {'English': 'Deleting', '中文': '刪除中'},
+  'fixing': {'English': 'Modifing', '中文': '修改中'},
+  'fix': {'English': 'Modify', '中文': '修改'},
 };
 
 var appBarButtonStyle = TextButton.styleFrom(primary: Colors.white);

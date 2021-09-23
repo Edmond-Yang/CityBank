@@ -103,6 +103,7 @@ class _HomeState extends State<Home> {
             user: widget.user,
             date: time,
             func: runTile,
+            isUpdate: true,
           );
         });
   }

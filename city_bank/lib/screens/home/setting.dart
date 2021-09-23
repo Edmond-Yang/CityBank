@@ -33,7 +33,7 @@ class _SettingModalState extends State<SettingModal> {
               topRight: Radius.elliptical(30, 20),
             ),
             child: Container(
-              color: Colors.brown[50],
+              color: Colors.white,
               padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
               child: SingleChildScrollView(
                 controller: scroller,
@@ -103,16 +103,23 @@ class _SettingModalState extends State<SettingModal> {
                           style: timeStyle.copyWith(
                               fontSize: 20.0, color: Colors.grey)),
                       SizedBox(height: 20.0),
-                      ElevatedButton.icon(
+                      OutlinedButton.icon(
                         onPressed: () async {
                           Navigator.pop(context);
                           await _auth.logOut();
                         },
-                        icon: Icon(Icons.logout),
+                        icon: Icon(
+                          Icons.logout,
+                          color: Colors.brown,
+                        ),
                         label: Text(
                             text['logout']![widget.user.setting.language]!,
-                            style: appBarTextStyle),
-                        style: elevatedButtonStyle,
+                            style: appBarTextStyle.copyWith(
+                                color: Colors.brown, fontSize: 20.0)),
+                        style: OutlinedButton.styleFrom(
+                          primary: Colors.brown[100],
+                          side: BorderSide(color: Colors.brown),
+                        ),
                       )
                     ],
                   ),
